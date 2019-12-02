@@ -52,6 +52,8 @@ type Upstream struct {
 	insecureSkipVerify bool
 	followRedirects    bool
 	passCookies        bool
+	passTargetURL      bool
+	passMethod         bool
 	match              *regexp.Regexp
 }
 
@@ -126,6 +128,22 @@ func constructor(config string) (backend.Backend, error) {
 		}
 	}
 
+	if s, found := options["method"]; found {
+		b, err := strconv.ParseBool(s)
+		if err != nil {
+			return nil, fmt.Errorf("unable to parse method %s: %v", s, err)
+		}
+		us.passMethod = b
+	}
+
+	if s, found := options["targetURL"]; found {
+		b, err := strconv.ParseBool(s)
+		if err != nil {
+			return nil, fmt.Errorf("unable to parse targetURL %s: %v", s, err)
+		}
+		us.passTargetURL = b
+	}
+
 	return us, nil
 }
 
@@ -163,6 +181,14 @@ func (h Upstream) Authenticate(r *http.Request) (bool, error) {
 		for _, c := range r.Cookies() {
 			req.AddCookie(c)
 		}
+	}
+
+	if h.passTargetURL {
+		req.Header.Add("X-Auth-URL", r.RequestURI)
+	}
+
+	if h.passMethod {
+		req.Header.Add("X-Auth-Method", r.Method)
 	}
 
 	resp, err := c.Do(req)

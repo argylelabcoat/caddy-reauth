@@ -1,13 +1,6 @@
 module github.com/argylelabcoat/caddy-reauth
 
 go 1.12
-
-replace (
-	git.apache.org/thrift.git => github.com/apache/thrift v0.0.0-20180902110319-2566ecd5d999
-	github.com/argylelabcoat/caddy-reauth => ./
-	github.com/go-resty/resty => gopkg.in/resty.v1 v1.12.0
-)
-
 require (
 	github.com/allegro/bigcache v1.2.1
 	github.com/caddyserver/caddy v1.0.1

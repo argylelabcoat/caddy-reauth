@@ -34,9 +34,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/freman/caddy-reauth/backend"
+	"github.com/argylelabcoat/caddy-reauth/backend"
 
-	ldp "gopkg.in/ldap.v2"
+	ldp "github.com/go-ldap/ldap/v3"
 )
 
 // Backend name

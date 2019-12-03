@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/caddyserver/caddy"
-	"github.com/freman/caddy-reauth/backend"
+	"github.com/argylelabcoat/caddy-reauth/backend"
 )
 
 func TestCaddyReauthConfigs(t *testing.T) {
